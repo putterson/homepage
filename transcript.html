@@ -1,0 +1,944 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/transitional.dtd">
+<HTML lang="en">
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=WINDOWS-1252">
+<META HTTP-EQUIV="Pragma" NAME="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" NAME="Cache-Control" CONTENT="no-cache">
+<LINK REL="stylesheet" HREF="/css/web_defaultapp.css" TYPE="text/css">
+<LINK REL="stylesheet" HREF="/css/web_defaultprint.css" TYPE="text/css" media="print">
+<TITLE>Academic Transcipt</TITLE>
+<script language="JavaScript" TYPE="text/javascript">
+            <!-- Hide JavaScript from older browsers
+
+       /*  JG -  Commented out below variable and instead made the code
+           modular(assign it at runtime to arg1) so that we could use
+           it in any application. Likewise for printReadyElem.
+
+           var gAutoPrint = true; // Flag for whether or not to automatically
+                                 //  call the print function.
+       */
+            function printSpecial(arg1,arg2,arg3)
+            {
+
+
+              var gAutoPrint = arg1;      // Do you want to auto show the Print dialog?
+              var printReadyElem = arg2;  // The name of your <DIV ID="prntMe"> tag
+              var name = arg3; //Added student name and ID to be printed in header
+
+              /*  if (navigator.appName.toUpperCase().match(/NETSCAPE/) != null)
+                {
+                   alert("Print functionality not available in Netscape.");
+                   return;
+                }
+
+              Above JS element to check for Netscape doesn't work because Netscape's
+              DOM cannot handle the arg2 to pass in without putting quotes around
+              it to make it into a string.  The problem is that once you do that,
+              IE will not work.  So, I've just decided to leave it alone.
+
+
+              This function ONLY works in IE.
+              */
+
+                /* 2005-09-15 - DC/UOIT - WC - I did investigation regarding the above comments.
+               Actually Both IE and Netscape can handle the arg2 to pass in without putting
+               quotes around it. The real cause is that the parameter pname.value (arg3)
+               was not passed properly. I have solved this issue in BWSKFSHD.P_CrseSchd by
+               putting the INPUT element inside the FORM and passing formName.pname,value
+               instead of pname.value. Now it works in other browsers (I tested it in IE,
+               Netscape and Firefox.).*/
+
+                if (document.getElementById != null)
+               {
+                 var html ='<HTML>\n<HEAD>\n';
+
+                 if (document.getElementsByTagName != null)
+                  {
+                     var headTags = document.getElementsByTagName("head");
+                     if (headTags.length > 0)
+                        html += headTags[0].innerHTML;
+                  }
+                    html += "Schedule for "+name;
+                    //--WC-html += '<font size="-2">\n</HEAD>\n<BODY>\n';
+                    html += '<font size="-2">\n</HEAD>\n<BODY><P>\n';
+           //    var printReadyElem = document.getElementById("printReady");
+                  document.getElementById(printReadyElem);
+               if (printReadyElem != null)
+                  {
+                    html += printReadyElem.innerHTML;
+                  }
+              else
+              {
+              //    Can't find printReady, so pop an alert.
+
+               alert("Could not find your print selection.");
+               return;
+              }
+                html += '\n</BODY>\n</HTML>\n</FONT>';
+
+              var printWin = window.open("","printSpecial");
+                printWin.document.open();
+              printWin.document.write(html);
+              printWin.document.close();
+                if (gAutoPrint)
+             printWin.print();
+               }
+       else
+       {
+            /*  Older versions of IE and Netscape don't support
+                this function, so tell them.
+            */
+          alert("Sorry, this feature is not compatible with your browser.");
+       }
+      }
+      //  End script hiding -->
+      </script>
+<META HTTP-EQUIV="Content-Script-Type" NAME="Default_Script_Language" CONTENT="text/javascript">
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+<!-- Hide JavaScript from older browsers 
+var submitcount=0;
+function checkSubmit() {
+if (submitcount == 0)
+   {
+   submitcount++;
+   return true;
+   }
+else
+   {
+alert("Your changes have already been submitted.");
+   return false;
+   }
+}
+//  End script hiding -->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+<!-- Hide JavaScript from older browsers 
+//  Function to open a window
+function windowOpen(window_url) {
+   helpWin = window.open(window_url,'','toolbar=yes,status=no,scrollbars=yes,menubar=yes,resizable=yes,directories=no,location=no,width=350,height=400');
+   if (document.images) { 
+       if (helpWin) helpWin.focus()
+   }
+}
+//  End script hiding -->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+<!-- Hide JavaScript from older browsers 
+function ShowPopup(SomeURL,width,height) {
+   var agt=navigator.userAgent.toLowerCase();
+   var ScreenWidth, ScreenHeight;
+   var WindowTop, WindowLeft;
+   var PopupWindow;
+   var isIE;
+
+   isIE = (agt.indexOf("msie") != -1);
+   ScreenHeight = 0;
+   ScreenWidth  = 0;
+   WindowTop    = 0;
+   WindowLeft   = 0;
+   var WindowWidth   = width;
+   var WindowHeight  = height;
+   if (isIE) {
+     ScreenWidth  = document.body.clientWidth;
+     ScreenHeight = document.body.clientHeight; }
+   else{
+     if (window.innerWidth) ScreenWidth = window.innerWidth;
+     if (window.innerHeight) ScreenHeight = window.innerHeight; }
+   Window_Top  = ScreenHeight - WindowHeight - 20;
+   Window_Left = ScreenWidth  - WindowWidth  - 20;
+   PopupWindow = window.open( SomeURL, 'Popup', 'scrollbars=yes,width='+WindowWidth+',height='+WindowHeight+',top='+Window_Top+',left='+Window_Left);
+   PopupWindow.focus();}
+//  End script hiding -->
+</SCRIPT>
+</HEAD>
+<BODY  class="campuspipeline" >
+<DIV class="headerwrapperdiv">
+<DIV class="headerlinksdiv">
+</DIV>
+<DIV class="pagetitlediv">
+<TABLE  CLASS="plaintable" SUMMARY="This table displays title and static header displays."
+   WIDTH="100%">
+<TR>
+<TD CLASS="pldefault">
+<H2>Display Transcript</H2>
+</TD>
+<TD CLASS="pldefault">
+&nbsp;
+</TD>
+<TD CLASS="pldefault"><p class="rightaligntext">
+<DIV class="staticheaders">
+ <br>
+Feb 27, 2012 09:15 am<br>
+</div>
+</TD>
+</TR>
+<TR>
+<TD class="bg3" width="100%" colSpan=3><IMG SRC="/wtlgifs/web_transparent.gif" ALT="Transparent Image" CLASS="headerImg" TITLE="Transparent Image"  NAME="web_transparent" HSPACE=0 VSPACE=0 BORDER=0 HEIGHT=3 WIDTH=10></TD>
+</TR>
+</TABLE>
+<a name="main_content"></a>
+</DIV>
+<DIV class="pagebodydiv">
+<!--  ** END OF twbkwbis.P_OpenDoc **  -->
+<DIV class="infotextdiv"><TABLE  CLASS="infotexttable" SUMMARY="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information."><TR><TD CLASS="indefault"><IMG SRC="/wtlgifs/twgginfo.gif" ALT="Information" CLASS="headerImg" TITLE="Information"  NAME="Info" HSPACE=0 VSPACE=0 BORDER=0 HEIGHT=24 WIDTH=27></TD><TD CLASS="indefault"><SPAN class="infotext"> This is NOT an official transcript.  Courses which are in progress may also be included on this transcript.<p></SPAN></TD></TR></TABLE><P></DIV>
+<A NAME="top">
+</A>
+<A HREF="#insti_credit">Institution Credit</A>
+&nbsp&nbsp
+<A HREF="#trans_totals">Transcript Totals</A>
+&nbsp&nbsp
+<A HREF="#crses_progress">Courses in Progress</A>
+<P class="whitespace1">
+<TABLE  CLASS="datadisplaytable" SUMMARY="This table will display the
+                                   user's Academic History in the following
+                                   sections:  Degree Information, Transfer
+                                   Credit By Institution, Institution
+                                   Credit, Transcript Totals ,
+                                   Courses In Progress." WIDTH="80%"><CAPTION class="captiontext">Transcript Data</CAPTION>
+<TR>
+<TH COLSPAN="12" CLASS="ddtitle" scope="colgroup" >STUDENT INFORMATION</TH>
+</TR>
+<TR>
+<TH COLSPAN="2" CLASS="ddlabel" scope="row" >Name :</TH>
+<TD COLSPAN="10" CLASS="dddefault">Pat C. Goebel</TD>
+</TR>
+<TR>
+<TH COLSPAN="2" CLASS="ddlabel" scope="row" >Student Type:</TH>
+<TD COLSPAN="10" CLASS="dddefault">Continuing</TD>
+</TR>
+<TR>
+<TH COLSPAN="6" CLASS="ddtitle" scope="colgroup" >Curriculum Information</TH>
+</TR>
+<TR>
+<TH COLSPAN="6" CLASS="ddlabel" scope="row" >Current Program</TH>
+</TR>
+<TR>
+<TH COLSPAN="3" CLASS="ddlabel" scope="row" >College:</TH>
+<TD COLSPAN="3" CLASS="dddefault">Science</TD>
+</TR>
+<TR>
+<TH COLSPAN="3" CLASS="ddlabel" scope="row" >Major:</TH>
+<TD COLSPAN="3" CLASS="dddefault">Computing Science-Co-op</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">***This is NOT an Official Transcript***</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddtitle" scope="colgroup" >INSTITUTION CREDIT&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<A HREF="#top" ALT="TOP" >-Top-</A><A NAME="insti_credit"></A></TH>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddlabel" scope="row" ><SPAN class="fieldOrangetextbold">Term: UOIT Fall 2009</SPAN></TH>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Academic Standing:</TH>
+<TD COLSPAN="7" CLASS="dddefault">Clear Standing</TD>
+</TR>
+<TR>
+<TH CLASS="ddheader" scope="col" >Subject</TH>
+<TH CLASS="ddheader" scope="col" >Course</TH>
+<TH CLASS="ddheader" scope="col" >Level</TH>
+<TH COLSPAN="4" CLASS="ddheader" scope="col" >Title</TH>
+<TH CLASS="ddheader" scope="col" >Grade</TH>
+<TH CLASS="ddheader" scope="col" >Credit Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH CLASS="ddheader" scope="col" >Start and End Dates</TH>
+<TH CLASS="ddheader" scope="col" ><ABBR title = "Repeat Status">R</ABBR></TH>
+</TR>
+<TR>
+<TD CLASS="dddefault">CHEM</TD>
+<TD CLASS="dddefault">1010U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Chemistry I</TD>
+<TD CLASS="dddefault">B</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              9.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">1000U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Scientific Computing Tools</TD>
+<TD CLASS="dddefault">C+</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              6.90</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">MATH</TD>
+<TD CLASS="dddefault">1000U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Introductory Calculus</TD>
+<TD CLASS="dddefault">B+</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              9.90</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">MATH</TD>
+<TD CLASS="dddefault">2050U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Linear Algebra I</TD>
+<TD CLASS="dddefault">C</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              6.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">PHY</TD>
+<TD CLASS="dddefault">1030U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Introductory Physics</TD>
+<TD CLASS="dddefault">A</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             12.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddtitle" scope="colgroup" >Term Totals (Undergraduate)</TH>
+</TR>
+<TR>
+<TD COLSPAN="5" CLASS="dddead">&nbsp;</TD>
+<TH CLASS="ddheader" scope="col" >Attempt Hours</TH>
+<TH CLASS="ddheader" scope="col" >Passed Hours</TH>
+<TH CLASS="ddheader" scope="col" >Earned Hours</TH>
+<TH CLASS="ddheader" scope="col" >GPA Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH COLSPAN="2" CLASS="ddheader" scope="col" >GPA</TH>
+</TR>
+<TR>
+<TH COLSPAN="5" CLASS="ddlabel" scope="row" >Cumulative:</TH>
+<TD CLASS="dddefault"><p class="rightaligntext">       15.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       15.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       15.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       15.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             43.80</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">                     2.92</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="4" CLASS="ddseparator"><DIV class="infotextdiv"><TABLE  CLASS="infotexttable" SUMMARY="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information."><TR><TD CLASS="indefault"><SPAN class="infotext"> Unofficial Transcript</SPAN></TD></TR></TABLE><P></DIV></TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddlabel" scope="row" ><SPAN class="fieldOrangetextbold">Term: UOIT Winter 2010</SPAN></TH>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Academic Standing:</TH>
+<TD COLSPAN="7" CLASS="dddefault">Clear Standing</TD>
+</TR>
+<TR>
+<TH CLASS="ddheader" scope="col" >Subject</TH>
+<TH CLASS="ddheader" scope="col" >Course</TH>
+<TH CLASS="ddheader" scope="col" >Level</TH>
+<TH COLSPAN="4" CLASS="ddheader" scope="col" >Title</TH>
+<TH CLASS="ddheader" scope="col" >Grade</TH>
+<TH CLASS="ddheader" scope="col" >Credit Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH CLASS="ddheader" scope="col" >Start and End Dates</TH>
+<TH CLASS="ddheader" scope="col" ><ABBR title = "Repeat Status">R</ABBR></TH>
+</TR>
+<TR>
+<TD CLASS="dddefault">BIOL</TD>
+<TD CLASS="dddefault">1840U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Biology for Engineers</TD>
+<TD CLASS="dddefault">A-</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             11.10</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CHEM</TD>
+<TD CLASS="dddefault">1020U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Chemistry II</TD>
+<TD CLASS="dddefault">C</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              6.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">1030U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Intro. to Computer Science</TD>
+<TD CLASS="dddefault">B</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              9.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">MATH</TD>
+<TD CLASS="dddefault">1020U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Calculus II</TD>
+<TD CLASS="dddefault">D</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              3.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">PHY</TD>
+<TD CLASS="dddefault">1020U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Physics II</TD>
+<TD CLASS="dddefault">B+</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              9.90</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddtitle" scope="colgroup" >Term Totals (Undergraduate)</TH>
+</TR>
+<TR>
+<TD COLSPAN="5" CLASS="dddead">&nbsp;</TD>
+<TH CLASS="ddheader" scope="col" >Attempt Hours</TH>
+<TH CLASS="ddheader" scope="col" >Passed Hours</TH>
+<TH CLASS="ddheader" scope="col" >Earned Hours</TH>
+<TH CLASS="ddheader" scope="col" >GPA Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH COLSPAN="2" CLASS="ddheader" scope="col" >GPA</TH>
+</TR>
+<TR>
+<TH COLSPAN="5" CLASS="ddlabel" scope="row" >Cumulative:</TH>
+<TD CLASS="dddefault"><p class="rightaligntext">       30.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       30.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       30.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       30.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             82.80</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">                     2.76</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="4" CLASS="ddseparator"><DIV class="infotextdiv"><TABLE  CLASS="infotexttable" SUMMARY="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information."><TR><TD CLASS="indefault"><SPAN class="infotext"> Unofficial Transcript</SPAN></TD></TR></TABLE><P></DIV></TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddlabel" scope="row" ><SPAN class="fieldOrangetextbold">Term: UOIT Fall 2010</SPAN></TH>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Academic Standing:</TH>
+<TD COLSPAN="7" CLASS="dddefault">Clear Standing</TD>
+</TR>
+<TR>
+<TH CLASS="ddheader" scope="col" >Subject</TH>
+<TH CLASS="ddheader" scope="col" >Course</TH>
+<TH CLASS="ddheader" scope="col" >Level</TH>
+<TH COLSPAN="4" CLASS="ddheader" scope="col" >Title</TH>
+<TH CLASS="ddheader" scope="col" >Grade</TH>
+<TH CLASS="ddheader" scope="col" >Credit Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH CLASS="ddheader" scope="col" >Start and End Dates</TH>
+<TH CLASS="ddheader" scope="col" ><ABBR title = "Repeat Status">R</ABBR></TH>
+</TR>
+<TR>
+<TD CLASS="dddefault">BUSI</TD>
+<TD CLASS="dddefault">2000U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Collaborative Leadership</TD>
+<TD CLASS="dddefault">A-</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             11.10</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">2010U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Principles Of Computer Science</TD>
+<TD CLASS="dddefault">A-</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             11.10</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">2050U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Computer Architecture I</TD>
+<TD CLASS="dddefault">A-</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             11.10</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">2110U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Discrete Struct. in Comp. Scie</TD>
+<TD CLASS="dddefault">B-</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              8.10</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">STAT</TD>
+<TD CLASS="dddefault">2010U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Stats & Prob for Physical Sci.</TD>
+<TD CLASS="dddefault">B</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              9.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddtitle" scope="colgroup" >Term Totals (Undergraduate)</TH>
+</TR>
+<TR>
+<TD COLSPAN="5" CLASS="dddead">&nbsp;</TD>
+<TH CLASS="ddheader" scope="col" >Attempt Hours</TH>
+<TH CLASS="ddheader" scope="col" >Passed Hours</TH>
+<TH CLASS="ddheader" scope="col" >Earned Hours</TH>
+<TH CLASS="ddheader" scope="col" >GPA Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH COLSPAN="2" CLASS="ddheader" scope="col" >GPA</TH>
+</TR>
+<TR>
+<TH COLSPAN="5" CLASS="ddlabel" scope="row" >Cumulative:</TH>
+<TD CLASS="dddefault"><p class="rightaligntext">       45.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       45.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       45.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       45.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">            133.20</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">                     2.96</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="4" CLASS="ddseparator"><DIV class="infotextdiv"><TABLE  CLASS="infotexttable" SUMMARY="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information."><TR><TD CLASS="indefault"><SPAN class="infotext"> Unofficial Transcript</SPAN></TD></TR></TABLE><P></DIV></TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddlabel" scope="row" ><SPAN class="fieldOrangetextbold">Term: UOIT Winter 2011</SPAN></TH>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Academic Standing:</TH>
+<TD COLSPAN="7" CLASS="dddefault">Clear Standing</TD>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Additional Standing:</TH>
+<TD COLSPAN="7" CLASS="dddefault">President's List</TD>
+</TR>
+<TR>
+<TH CLASS="ddheader" scope="col" >Subject</TH>
+<TH CLASS="ddheader" scope="col" >Course</TH>
+<TH CLASS="ddheader" scope="col" >Level</TH>
+<TH COLSPAN="4" CLASS="ddheader" scope="col" >Title</TH>
+<TH CLASS="ddheader" scope="col" >Grade</TH>
+<TH CLASS="ddheader" scope="col" >Credit Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH CLASS="ddheader" scope="col" >Start and End Dates</TH>
+<TH CLASS="ddheader" scope="col" ><ABBR title = "Repeat Status">R</ABBR></TH>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">2020U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Software Systems Dev. & Integ.</TD>
+<TD CLASS="dddefault">A-</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             11.10</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">2030U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Programming Workshop</TD>
+<TD CLASS="dddefault">B+</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              9.90</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">2160U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Digital Media</TD>
+<TD CLASS="dddefault">A+</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             12.90</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">MATH</TD>
+<TD CLASS="dddefault">2072U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Computational Science I</TD>
+<TD CLASS="dddefault">A+</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             12.90</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">SCIE</TD>
+<TD CLASS="dddefault">1900U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Astronomy</TD>
+<TD CLASS="dddefault">A-</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             11.10</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddtitle" scope="colgroup" >Term Totals (Undergraduate)</TH>
+</TR>
+<TR>
+<TD COLSPAN="5" CLASS="dddead">&nbsp;</TD>
+<TH CLASS="ddheader" scope="col" >Attempt Hours</TH>
+<TH CLASS="ddheader" scope="col" >Passed Hours</TH>
+<TH CLASS="ddheader" scope="col" >Earned Hours</TH>
+<TH CLASS="ddheader" scope="col" >GPA Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH COLSPAN="2" CLASS="ddheader" scope="col" >GPA</TH>
+</TR>
+<TR>
+<TH COLSPAN="5" CLASS="ddlabel" scope="row" >Cumulative:</TH>
+<TD CLASS="dddefault"><p class="rightaligntext">       60.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       60.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       60.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       60.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">            191.10</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">                     3.18</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="4" CLASS="ddseparator"><DIV class="infotextdiv"><TABLE  CLASS="infotexttable" SUMMARY="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information."><TR><TD CLASS="indefault"><SPAN class="infotext"> Unofficial Transcript</SPAN></TD></TR></TABLE><P></DIV></TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddlabel" scope="row" ><SPAN class="fieldOrangetextbold">Term: UOIT Spring/Summer 2011</SPAN></TH>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Academic Standing:</TH>
+<TD COLSPAN="7" CLASS="dddefault">Clear Standing</TD>
+</TR>
+<TR>
+<TH CLASS="ddheader" scope="col" >Subject</TH>
+<TH CLASS="ddheader" scope="col" >Course</TH>
+<TH CLASS="ddheader" scope="col" >Level</TH>
+<TH COLSPAN="4" CLASS="ddheader" scope="col" >Title</TH>
+<TH CLASS="ddheader" scope="col" >Grade</TH>
+<TH CLASS="ddheader" scope="col" >Credit Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH CLASS="ddheader" scope="col" >Start and End Dates</TH>
+<TH CLASS="ddheader" scope="col" ><ABBR title = "Repeat Status">R</ABBR></TH>
+</TR>
+<TR>
+<TD CLASS="dddefault">SCCO</TD>
+<TD CLASS="dddefault">1000W</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Co-op Work Term 1</TD>
+<TD CLASS="dddefault">PAS</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              0.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddtitle" scope="colgroup" >Term Totals (Undergraduate)</TH>
+</TR>
+<TR>
+<TD COLSPAN="5" CLASS="dddead">&nbsp;</TD>
+<TH CLASS="ddheader" scope="col" >Attempt Hours</TH>
+<TH CLASS="ddheader" scope="col" >Passed Hours</TH>
+<TH CLASS="ddheader" scope="col" >Earned Hours</TH>
+<TH CLASS="ddheader" scope="col" >GPA Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH COLSPAN="2" CLASS="ddheader" scope="col" >GPA</TH>
+</TR>
+<TR>
+<TH COLSPAN="5" CLASS="ddlabel" scope="row" >Cumulative:</TH>
+<TD CLASS="dddefault"><p class="rightaligntext">       63.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       63.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       63.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       60.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">            191.10</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">                     3.18</TD>
+</TR>
+<TR>
+<TD COLSPAN="12" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="4" CLASS="ddseparator"><DIV class="infotextdiv"><TABLE  CLASS="infotexttable" SUMMARY="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information."><TR><TD CLASS="indefault"><SPAN class="infotext"> Unofficial Transcript</SPAN></TD></TR></TABLE><P></DIV></TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddlabel" scope="row" ><SPAN class="fieldOrangetextbold">Term: UOIT Fall 2011</SPAN></TH>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Academic Standing:</TH>
+<TD COLSPAN="7" CLASS="dddefault">Clear Standing</TD>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Additional Standing:</TH>
+<TD COLSPAN="7" CLASS="dddefault">Dean's List</TD>
+</TR>
+<TR>
+<TH CLASS="ddheader" scope="col" >Subject</TH>
+<TH CLASS="ddheader" scope="col" >Course</TH>
+<TH CLASS="ddheader" scope="col" >Level</TH>
+<TH COLSPAN="4" CLASS="ddheader" scope="col" >Title</TH>
+<TH CLASS="ddheader" scope="col" >Grade</TH>
+<TH CLASS="ddheader" scope="col" >Credit Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH CLASS="ddheader" scope="col" >Start and End Dates</TH>
+<TH CLASS="ddheader" scope="col" ><ABBR title = "Repeat Status">R</ABBR></TH>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">3020U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Operating Systems</TD>
+<TD CLASS="dddefault">A</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             12.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">3030U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Database Systems & Concepts</TD>
+<TD CLASS="dddefault">A-</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             11.10</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">3070U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Analys. & Design of Algorithms</TD>
+<TD CLASS="dddefault">A-</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             11.10</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">3150U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Computer Networks</TD>
+<TD CLASS="dddefault">C+</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              6.90</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">4100U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Mobile Devices</TD>
+<TD CLASS="dddefault">A</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        3.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">             12.00</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+<TD CLASS="dddefault">&nbsp;</TD>
+<TD CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TH COLSPAN="12" CLASS="ddtitle" scope="colgroup" >Term Totals (Undergraduate)</TH>
+</TR>
+<TR>
+<TD COLSPAN="5" CLASS="dddead">&nbsp;</TD>
+<TH CLASS="ddheader" scope="col" >Attempt Hours</TH>
+<TH CLASS="ddheader" scope="col" >Passed Hours</TH>
+<TH CLASS="ddheader" scope="col" >Earned Hours</TH>
+<TH CLASS="ddheader" scope="col" >GPA Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH COLSPAN="2" CLASS="ddheader" scope="col" >GPA</TH>
+</TR>
+<TR>
+<TH COLSPAN="5" CLASS="ddlabel" scope="row" >Cumulative:</TH>
+<TD CLASS="dddefault"><p class="rightaligntext">       78.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       78.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       78.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       75.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">            244.20</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">                     3.25</TD>
+</TR>
+<TR>
+<TD COLSPAN="11" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="4" CLASS="ddseparator"><DIV class="infotextdiv"><TABLE  CLASS="infotexttable" SUMMARY="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information."><TR><TD CLASS="indefault"><SPAN class="infotext"> Unofficial Transcript</SPAN></TD></TR></TABLE><P></DIV></TD>
+</TR>
+<TR>
+<TH COLSPAN="11" CLASS="ddtitle" scope="colgroup" >TRANSCRIPT TOTALS (UNDERGRADUATE)&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<A HREF="#top" ALT="TOP" >-Top-</A><A NAME="trans_totals"></A></TH>
+</TR>
+<TR>
+<TD COLSPAN="4" CLASS="dddead">&nbsp;</TD>
+<TH CLASS="ddheader" scope="col" >Attempt Hours</TH>
+<TH CLASS="ddheader" scope="col" >Passed Hours</TH>
+<TH CLASS="ddheader" scope="col" >Earned Hours</TH>
+<TH CLASS="ddheader" scope="col" >GPA Hours</TH>
+<TH CLASS="ddheader" scope="col" >Quality Points</TH>
+<TH COLSPAN="2" CLASS="ddheader" scope="col" >GPA</TH>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Total Institution:</TH>
+<TD CLASS="dddefault"><p class="rightaligntext">       78.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       78.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       78.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">       75.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">            244.20</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">                     3.25</TD>
+</TR>
+<TR>
+<TH COLSPAN="4" CLASS="ddlabel" scope="row" >Total Transfer:</TH>
+<TD CLASS="dddefault"><p class="rightaligntext">        0.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        0.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        0.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">        0.000</TD>
+<TD CLASS="dddefault"><p class="rightaligntext">              0.00</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">                     0.00</TD>
+</TR>
+<TR>
+<TD COLSPAN="11" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="4" CLASS="ddseparator"><DIV class="infotextdiv"><TABLE  CLASS="infotexttable" SUMMARY="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information."><TR><TD CLASS="indefault"><SPAN class="infotext"> Unofficial Transcript</SPAN></TD></TR></TABLE><P></DIV></TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">3040U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Software Eng I:Req, Des & Anal</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">    3.000</TD>
+<TD COLSPAN="2" CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">3060U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Software Eng. II: Software QA</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">    3.000</TD>
+<TD COLSPAN="2" CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">3090U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Sci Visual & Computer Graphics</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">    3.000</TD>
+<TD COLSPAN="2" CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">4020U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Compilers</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">    3.000</TD>
+<TD COLSPAN="2" CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD CLASS="dddefault">CSCI</TD>
+<TD CLASS="dddefault">4040U</TD>
+<TD CLASS="dddefault">UG</TD>
+<TD COLSPAN="4" CLASS="dddefault">Eth., Law & Soc. Imp of  Comp.</TD>
+<TD COLSPAN="2" CLASS="dddefault"><p class="rightaligntext">    3.000</TD>
+<TD COLSPAN="2" CLASS="dddead">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="11" CLASS="ddseparator">&nbsp;</TD>
+</TR>
+<TR>
+<TD COLSPAN="4" CLASS="ddseparator"><DIV class="infotextdiv"><TABLE  CLASS="infotexttable" SUMMARY="This layout table contains information that may be helpful in understanding the content and functionality of this page.  It could be a brief set of instructions, a description of error messages, or other special information."><TR><TD CLASS="indefault"><SPAN class="infotext"> Unofficial Transcript</SPAN></TD></TR></TABLE><P></DIV></TD>
+</TR>
+</TABLE>
+
+<!--  ** START OF twbkwbis.P_CloseDoc **  -->
+<TABLE  CLASS="plaintable" SUMMARY="This is table displays line separator at end of the page."
+                                             WIDTH="100%" cellSpacing=0 cellPadding=0 border=0><TR><TD class="bgtabon" width="100%" colSpan=2><IMG SRC="/wtlgifs/web_transparent.gif" ALT="Transparent Image" CLASS="headerImg" TITLE="Transparent Image"  NAME="web_transparent" HSPACE=0 VSPACE=0 BORDER=0 HEIGHT=3 WIDTH=10></TD></TR></TABLE>
+<A HREF="#top" onMouseover="window.status='Skip to top of page'; return true" onMouseout="window.status=''; return true" OnFocus="window.status='Skip to top of page'; return true" onBlur="window.status=''; return true" class="skiplinks">Skip to top of page</A>
+</DIV>
+<DIV class="footerbeforediv">
+
+</DIV>
+<DIV class="footerafterdiv">
+
+</DIV>
+<DIV class="globalafterdiv">
+
+</DIV>
+<DIV class="globalfooterdiv">
+
+</DIV>
+<DIV class="pagefooterdiv">
+<SPAN class="releasetext">Release: 8.4.1</SPAN>
+</DIV>
+<DIV class="poweredbydiv">
+</DIV>
+<DIV class="div1"></DIV>
+<DIV class="div2"></DIV>
+<DIV class="div3"></DIV>
+<DIV class="div4"></DIV>
+<DIV class="div5"></DIV>
+<DIV class="div6"></DIV>
+</BODY>
+</HTML>
