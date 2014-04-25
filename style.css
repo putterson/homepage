@@ -96,6 +96,7 @@ img {width: 100%;}
 	font-weight: normal;
 	color: #B5B5B5;
 	border: none;
+    outline: none;
 }
 
 #menu .current_page_item a { color: #FFFFFF; }

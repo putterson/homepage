@@ -12,6 +12,37 @@
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
 <body>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script src="Markdown.Converter.js"></script>
+    <script>
+        function setCurrentTab(sender){                        
+            //Set the active 'tab'
+            var li = sender.parentNode.parentNode.getElementsByTagName("li");
+
+            for (var i = 0, len = li.length; i < len; i++ ) {
+                li[ i ].classList.remove('current_page_item');
+            }
+            sender.parentNode.classList.add('current_page_item');
+        }
+        function loadContent(md){
+            $.ajax({
+                url: md,
+                dataType: 'text',
+
+                success: function(data) {
+                    //do the markdown replace
+                    var converter = new Markdown.Converter();
+                    var result = converter.makeHtml(data);
+
+                    $('#content').html(result);
+                }
+            });
+
+        }
+        $(document).ready(function () {
+            loadContent("home.md");
+        });
+    </script>
 	<div id="minMax">
 		<div id="header">
 			<div class="logo">
@@ -23,15 +54,14 @@
 
 		<div id="menu-wrapper">
 			<div id="menu-image">
-				<a href="http://uoit.ca/"><img src="https://connect.uoit.ca/uoit/graphics/custom/logo.gif" alt="UOIT Home" /></a>
+<!-- 				<a href="http://uoit.ca/"><img src="https://connect.uoit.ca/uoit/graphics/custom/logo.gif" alt="UOIT Home" /></a> -->
 			</div>
 			<div id="menu">
-				<ul>
-					<li class="current_page_item"><a href="#">Home</a></li>
-					<li><a href="#">Links</a></li>
-					<li><a href="#">Contact</a></li>
-					<li><a href="https://github.com/putterson">GitHub</a></li>
-					<li><a href="resume.pdf">Resume</a></li>
+				<ul id="menulist">
+					<li id='home' class="current_page_item"><a href="#" onclick="loadContent('home.md'); setCurrentTab(this);">Home</a></li>
+					<li id='books'><a href="#" onclick='loadContent("books.md"); setCurrentTab(this);'>Good Reads</a></li>
+					<li><a href="https://github.com/putterson">GitHub ➤</a></li>
+					<li><a href="resume.pdf">Resume ⬇</a></li>
 				</ul>
 			</div>
 
@@ -39,10 +69,7 @@
 
 		<div id="wrapper">
 			<div id="topbar">
-				<div class="content">
-					<h3>About Me</h3>
-					<p>I am a highly technically oriented individual with a 'do-it-yourself' attitude. I am currently in my third year, working towards a Bachelor with Honours in Computer Science at UOIT</p>
-					<p>When I am not working on school work I enjoy tinkering with hardware, software, my linux boxen as well as playing and practicing guitar and playing with my midi keyboard and software.</p>
+				<div id="content" class="content">
 				</div>
 			</div>
 
