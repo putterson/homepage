@@ -63,7 +63,8 @@
 						children[i].onclick = tabOnClick(mdpage, itemid);
 				}
 			}
-            loadMarkdown("home.md");
+            //loadMarkdown("home.md");
+			document.getElementById('home').onclick();
         });
     </script>
 	<div id="minMax">
@@ -81,8 +82,9 @@
 			</div>
 			<div id="menu">
 				<ul id="menulist">
-					<li id='home' data-md="home.md" class="current_page_item"><a href="no-javascript.html" >Home</a></li>
-					<li><a href="resume.pdf">Resume ⬇</a></li>
+					<li id='home' data-md="home.md" ><a href="no-javascript.html" >Home</a></li>
+					<li id='resume' data-md="resume.md" class="smallpadr"><a href="no-javascript.html">Resume</a></li>
+					<li id='pdfresume'><a href="resume.pdf" class="smallpadl"><img src="pdficon_small.png" class="smallpadl"></img></a></li>
 					<li><a href="https://github.com/putterson" target="_newtab">GitHub ➤</a></li>
 					<li id='projects' data-md="projects.md"><a href="no-javascript.html">Projects</a></li>
 					<li id='books' data-md="books.md"><a href="no-javascript.html">Good Reads</a></li>
