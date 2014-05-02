@@ -48,6 +48,7 @@
 				var onclick = function() {
 							loadMarkdown(page);
 							setCurrentTab(ident);
+							window.location.hash = '#' + id;
 							return false;
 				};
 				return onclick;
@@ -64,7 +65,12 @@
 				}
 			}
             //loadMarkdown("home.md");
-			document.getElementById('home').onclick();
+			var hash = window.location.hash.substring(1);
+			if(hash){
+				document.getElementById(hash).onclick();
+			}else {
+				document.getElementById('home').onclick();
+			}
         });
     </script>
 	<div id="minMax">
