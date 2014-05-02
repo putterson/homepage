@@ -7,4 +7,5 @@ While I am interested in any technical challenge presented to me I have particul
 
 I love taking things apart and that is where my love of software and hardware stems from. I am a big proponent of open source software and hardware.
 
-When I am not fiddling with my technology I enjoy singing, playing my guitars and <a href="#" onclick='loadContent("books.md");'>reading</a>.
+When I am not fiddling with my technology I enjoy singing, playing my guitars and <a href="no-javascript.html" onclick="tabOnClick('books.md','books')(); return false;">reading</a>.
+
