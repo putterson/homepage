@@ -1,5 +1,5 @@
 <h3>About Me</h3>
-I am a technically oriented and highly inquisitive programmer and system administrator
+I am a technically oriented and highly inquisitive programmer and system administrator.
 
 My claim to fame is my ability to fix things, whether it's a broken software environment, a finnicky cable, a wobbly leg or a cryptic bash script. I am not afraid to open my toolbox and take out my screwdriver, soldering iron, hex editor and packet sniffer and get to work. When presented with a problem I do not tire in unravelling the details and finding a solution, where many an all-nighter have been spent.
 

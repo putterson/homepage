@@ -1,0 +1,2 @@
+- Fix back button from external page not loading the tab you were on
+- Add loading of multiple markdown file or multiple divs in a markdown file for 'post' like functionality

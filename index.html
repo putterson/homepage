@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Pat Goebel</title>
@@ -15,18 +15,19 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
     <script src="Markdown.Converter.js"></script>
     <script>
-        function setCurrentTab(sender){                        
-            //Set the active 'tab'
-            var li = sender.parentNode.parentNode.getElementsByTagName("li");
-
-            for (var i = 0, len = li.length; i < len; i++ ) {
-                li[ i ].classList.remove('current_page_item');
+        function setCurrentTab(id){
+			//Clear the active tab
+			var listnodes = document.getElementById('menulist').children;
+            for (var i = 0, len = listnodes.length; i < len; i++ ) {
+                listnodes[ i ].classList.remove('current_page_item');
             }
-            sender.parentNode.classList.add('current_page_item');
+
+			//Set the active tab
+			document.getElementById(id).classList.add('current_page_item');
         }
-        function loadContent(md){
+        function loadMarkdown(md){
             $.ajax({
-                url: md,
+                url: 'markdown/' + md,
                 dataType: 'text',
 
                 success: function(data) {
@@ -35,12 +36,34 @@
                     var result = converter.makeHtml(data);
 
                     $('#content').html(result);
-                }
+                },
+				error: function() {
+					$('#content').html("Woops! We failed to load the markdown for this page. Please contact me ===>");
+				}	
             });
-
         }
+		function tabOnClick(md, id){
+				var page = md.toString();
+				var ident = id.toString();
+				var onclick = function() {
+							loadMarkdown(page);
+							setCurrentTab(ident);
+							return false;
+				};
+				return onclick;
+		}
+
         $(document).ready(function () {
-            loadContent("home.md");
+			var menulist = document.getElementById('menulist');
+			var children = menulist.childNodes;
+			for(i=0; i<children.length; i++){
+				if(children[i].nodeName == 'LI' && children[i].hasAttribute("data-md")){
+						var mdpage = children[i].attributes.getNamedItem("data-md").value;
+						var itemid = children[i].attributes.getNamedItem("id").value;
+						children[i].onclick = tabOnClick(mdpage, itemid);
+				}
+			}
+            loadMarkdown("home.md");
         });
     </script>
 	<div id="minMax">
@@ -58,10 +81,12 @@
 			</div>
 			<div id="menu">
 				<ul id="menulist">
-					<li id='home' class="current_page_item"><a href="#" onclick="loadContent('home.md'); setCurrentTab(this);">Home</a></li>
+					<li id='home' data-md="home.md" class="current_page_item"><a href="no-javascript.html" >Home</a></li>
 					<li><a href="resume.pdf">Resume ⬇</a></li>
-					<li><a href="https://github.com/putterson">GitHub ➤</a></li>
-					<li id='books'><a href="#" onclick='loadContent("books.md"); setCurrentTab(this);'>Good Reads</a></li>
+					<li><a href="https://github.com/putterson" target="_newtab">GitHub ➤</a></li>
+					<li id='projects' data-md="projects.md"><a href="no-javascript.html">Projects</a></li>
+					<li id='books' data-md="books.md"><a href="no-javascript.html">Good Reads</a></li>
+					<li id='music' data-md="music.md"><a href="no-javascript.html">Good Listening</a></li>
 				</ul>
 			</div>
 
@@ -70,6 +95,7 @@
 		<div id="wrapper">
 			<div id="topbar">
 				<div id="content" class="content">
+						You must have Javascript enabled to view this page.
 				</div>
 			</div>
 
